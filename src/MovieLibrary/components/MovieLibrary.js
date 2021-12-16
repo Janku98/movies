@@ -1,4 +1,4 @@
-import React, { Component } from 'react'
+import React, { Component, useEffect } from 'react'
 import {connect} from 'react-redux'
 import PropTypes from 'prop-types'
 import {fetchTopRatedMovies} from '../store/actions'
@@ -9,21 +9,22 @@ import './MovieLibrary.css'
 import {getMovies} from '../store/selectors'
 import MoviesList from './MoviesList'
 
-class MovieLibrary extends Component {
+export const MovieLibrary = (props) => {
+  console.log("PROPS", props)
 
-  static propTypes = {
+  let propTypes = {
 
-  }
+  };
 
-  componentDidMount() {
-    const {fetchTopRatedMovies} = this.props
-    fetchTopRatedMovies()
-  }
+  useEffect(()=>{
+    const {fetchTopRatedMovies} = props;
+    fetchTopRatedMovies();
+  });
 
-  render() {
-    const {movies} = this.props
-    return (
-      <div className="MovieLibrary">
+  const {movies} = props
+
+  return (
+    <div className="MovieLibrary">
         <header className="ML-header">
           <img src={logo} className="ML-logo" alt="logo" />
           <h1 className="ML-title">Movies</h1>
@@ -32,9 +33,10 @@ class MovieLibrary extends Component {
           { movies.length && <MoviesList movies={movies}/> }
         </div>
       </div>
-    );
-  }
+  );
 }
+
+
 
 export default connect(state => ({
   movies: getMovies(state)
