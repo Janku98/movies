@@ -1,48 +1,51 @@
 import React, { Component, PureComponent, useState  } from 'react';
-import PropTypes from 'prop-types';
-import classNames from 'classnames';
-
 import TMDBImage from './TMDBImage';
 import './styles/MoviesList.css';
 import MovieMiniature from './MovieMiniature';
-import SortingOptions from './SortingOptions';
+import {aTOz, zTOa, ratingSort} from './hooks/useSort';
 
 
 export default function MovieList(props) {
 
-  //Ex static
-  let propTypes = {
-    movies: PropTypes.array.isRequired
-  };
-
-  const [state, setState] = useState({selectedMovie: null});
-
-  const handleSelectMovie = (item) => (setState({selectedMovie: item}) );  
+    const [state, setState] = useState({selectedMovie: null, value: "name_asc"});
+                                        
+    const handleSelectMovie = (item) => (setState({selectedMovie: item}) );  
   
-  const {movies} = props;
+    const {selectedMovie} = state;
+    
+    //Sort Functions
+    var moviesFiltered = props.movies;
+    if (state.value === "name_asc") { moviesFiltered = props.movies.sort(aTOz)};
+    if (state.value === "name_desc"){ moviesFiltered = props.movies.sort(zTOa)};
+    if (state.value === "rating"){moviesFiltered = props.movies.sort(ratingSort)};
   
-  const handleSortingChange = (sortingType) => console.log(sortingType);
+  
+    const handleChange = e => {
+      setState({value: e.target.value});
+    };
 
   
-  const {selectedMovie} = state;
+  
 
   return(
     <div className="movies-list">
-        
           <div>
             <span>Sort by:</span>
-            <SortingOptions onChange={handleSortingChange}/>
+            <select onChange={handleChange}>
+              <option value="name_asc">A -> Z</option>
+              <option value="name_desc">Z -> A</option>
+              <option value="rating">Rating</option>
+            </select>
           </div>
 
           <div className="miniatureimg">
             {
-              movies.map(movie =>
+              moviesFiltered.map(movie =>
                 // <MovieListItem key={movie.id} movie={movie} isSelected={selectedMovie===movie} onSelect={handleSelectMovie}/>
                 <MovieMiniature key={movie.id} movie={movie} isSelected={selectedMovie===movie} onSelect={handleSelectMovie}/>
               )
             }
           </div>
-          
     </div>
   )
 };

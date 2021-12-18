@@ -1,9 +1,17 @@
-import {FETCH_MOVIES} from '../../actionTypes'
+import actions from '../../actionTypes'
 import topRatedMovies from '../mocks/topTatedMovies'
 
 export function fetchTopRatedMovies() {
   return {
-    type: FETCH_MOVIES,
+    type: actions.FETCH_MOVIES,
     payload: topRatedMovies
   }
-}
+};
+
+export function sortMovie(state) {
+  return {
+    type: actions.SORT_MOVIES,
+    payload: state
+  }
+};
+
