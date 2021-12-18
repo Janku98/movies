@@ -1,13 +1,13 @@
-import React, { Component, useEffect } from 'react'
-import {connect} from 'react-redux'
-import PropTypes from 'prop-types'
-import {fetchTopRatedMovies} from '../store/actions'
+import React, { Component, useEffect } from 'react';
+import {connect} from 'react-redux';
+import PropTypes from 'prop-types';
+import {fetchTopRatedMovies} from '../store/actions';
 
 
-import logo from './logo.svg'
-import './MovieLibrary.css'
-import {getMovies} from '../store/selectors'
-import MoviesList from './MoviesList'
+import logo from './logo.svg';
+import './styles/MovieLibrary.css';
+import {getMovies} from '../store/selectors';
+import MoviesList from './MoviesList';
 
 export const MovieLibrary = (props) => {
   console.log("PROPS", props)
