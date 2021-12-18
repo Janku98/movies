@@ -10,18 +10,15 @@ import {getMovies} from '../store/selectors';
 import MoviesList from './MoviesList';
 
 export const MovieLibrary = (props) => {
-  console.log("PROPS", props)
 
-  let propTypes = {
-
-  };
+  const {movies} = props
 
   useEffect(()=>{
     const {fetchTopRatedMovies} = props;
     fetchTopRatedMovies();
   });
 
-  const {movies} = props
+  
 
   return (
     <div className="MovieLibrary">
