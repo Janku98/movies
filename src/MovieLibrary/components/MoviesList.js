@@ -1,9 +1,11 @@
-import React, { Component, PureComponent, useState  } from 'react'
-import PropTypes from 'prop-types'
-import classNames from 'classnames'
+import React, { Component, PureComponent, useState  } from 'react';
+import PropTypes from 'prop-types';
+import classNames from 'classnames';
 
-import TMDBImage from './TMDBImage'
-import './MoviesList.css'
+import TMDBImage from './TMDBImage';
+import './styles/MoviesList.css';
+import MovieMiniature from './MovieMiniature';
+import SortingOptions from './SortingOptions';
 
 
 export default function MovieList(props) {
@@ -15,32 +17,33 @@ export default function MovieList(props) {
 
   const [state, setState] = useState({selectedMovie: null});
 
-  const handleSelectMovie = (item) => setState({selectedMovie: item}); 
+  const handleSelectMovie = (item) => (setState({selectedMovie: item}) );  
+  
+  const {movies} = props;
   
   const handleSortingChange = (sortingType) => console.log(sortingType);
 
-  const {movies} = props;
+  
   const {selectedMovie} = state;
 
   return(
     <div className="movies-list">
-        <div className="items">
+        
           <div>
             <span>Sort by:</span>
             <SortingOptions onChange={handleSortingChange}/>
           </div>
-          {
-            movies.map(movie =>
-              <MovieListItem key={movie.id} movie={movie} isSelected={selectedMovie===movie} onSelect={handleSelectMovie}/>
-            )
-          }
-        </div>
-        {
-          selectedMovie && (
-            <ExpandedMovieItem movie={selectedMovie} />
-          )
-        }
-      </div>
+
+          <div className="miniatureimg">
+            {
+              movies.map(movie =>
+                // <MovieListItem key={movie.id} movie={movie} isSelected={selectedMovie===movie} onSelect={handleSelectMovie}/>
+                <MovieMiniature key={movie.id} movie={movie} isSelected={selectedMovie===movie} onSelect={handleSelectMovie}/>
+              )
+            }
+          </div>
+          
+    </div>
   )
 };
 
@@ -60,42 +63,6 @@ const ExpandedMovieItem = ({movie: {title, original_title, poster_path, overview
 
 
 
-const MovieListItem = (props) => {
-
-  const handleClick = () =>{
-    const {movie, onSelect} = props;
-    onSelect(movie);
-  };
-
-  const {movie: {title, vote_average}, isSelected} = props;
-
-  return(
-    <div className={classNames('movie-list-item', {'selected': isSelected})} onClick={handleClick}>{title}({vote_average})</div>
-  )
-};
-
-
-
-const SortingOptions = (props) => {
-
-  const [state, setState]= useState({value: ""});
-
-  const handleChange = e => {
-    const selectedValue = e.target.value;
-    const {onChange} = props;
-    setState({value: selectedValue});
-    onChange(selectedValue);
-  };
-
-  return(
-    <select value={state.value} onChange={handleChange}>
-        <option value=""></option>
-        <option value="name_asc">A -> Z</option>
-        <option value="name_desc">Z -> A</option>
-        <option value="rating">Rating</option>
-      </select>
-  );
-};
 
 
 
