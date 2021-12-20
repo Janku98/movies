@@ -10,7 +10,6 @@ export default function MovieList(props) {
     const [state, setState] = useState({selectedMovie: null, value: "name_asc"});
                                         
     const handleSelectMovie = (item) => (setState({selectedMovie: item}) );  
-  
     const {selectedMovie} = state;
     
     //Sort Functions
@@ -19,14 +18,11 @@ export default function MovieList(props) {
     if (state.value === "name_desc"){ moviesFiltered = props.movies.sort(zTOa)};
     if (state.value === "rating"){moviesFiltered = props.movies.sort(ratingSort)};
   
-  
     const handleChange = e => {
       setState({value: e.target.value});
     };
 
   
-  
-
   return(
     <div className="movies-list">
           <div>
@@ -41,7 +37,6 @@ export default function MovieList(props) {
           <div className="miniatureimg">
             {
               moviesFiltered.map(movie =>
-                // <MovieListItem key={movie.id} movie={movie} isSelected={selectedMovie===movie} onSelect={handleSelectMovie}/>
                 <MovieMiniature key={movie.id} movie={movie} isSelected={selectedMovie===movie} onSelect={handleSelectMovie}/>
               )
             }
@@ -53,16 +48,7 @@ export default function MovieList(props) {
 
 
 
-const ExpandedMovieItem = ({movie: {title, original_title, poster_path, overview, vote_average, vote_count}}) => (
-  <div className="expanded-movie-item">
-    <TMDBImage src={poster_path} className="poster" />
-    <div className="description">
-      <h2>{title}({original_title})</h2>
-      <div><h4>Rank(votes count)</h4>: <span>{vote_average}({vote_count})</span></div>
-      <span>{overview}</span>
-    </div>
-  </div>
-);
+
 
 
 
