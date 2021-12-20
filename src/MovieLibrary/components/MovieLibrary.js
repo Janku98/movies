@@ -1,10 +1,7 @@
-import React, { Component, useEffect, useState } from 'react';
-import {connect} from 'react-redux';
-import PropTypes from 'prop-types';
+import React, { useEffect, useState} from 'react';
+import {connect, useDispatch} from 'react-redux';
 import {fetchMovies} from '../store/actions';
 import InfiniteScroll from 'react-infinite-scroll-component';
-
-
 import logo from './logo.svg';
 import './styles/MovieLibrary.css';
 import {getMovies} from '../store/selectors';
@@ -18,13 +15,19 @@ export const MovieLibrary = (props) => {
     fetchMovies(2) ;
     fetchMovies(3);
   },[]);
-  
-  const [items, setItems] = useState([]);
+
+  const dispatch = useDispatch();
+  const [hasMore, setHasMore] = useState(true);
+  const [page, setPage] = useState(4);
   const {movies} = props
 
   const fetchData = () =>{
-    
-  }
+    dispatch(fetchMovies(page));
+    setPage(page + 1);
+    if(page === 87){
+      setHasMore(false);
+    };
+  };
   
   return (
     <div className="MovieLibrary">
@@ -35,19 +38,18 @@ export const MovieLibrary = (props) => {
         </header>
         
         <InfiniteScroll
-            dataLength={items.length} 
+            dataLength={movies.length} 
             next={fetchData}
-            hasMore={true}
+            hasMore={hasMore}
             loader={<h4>Loading...</h4>}
             endMessage={<p style={{ textAlign: 'center' }}><b>Yay! You have seen it all</b></p> }>
-            {items}
+            {
+              <div className="ML-intro">
+                {movies.length && <MoviesList movies={movies}/> }
+              </div>
+              }
         </InfiniteScroll>
-
-        <div className="ML-intro">
-          { movies.length && <MoviesList movies={movies}/> }
-        </div>
-
-      </div>
+    </div>
   );
 }
 

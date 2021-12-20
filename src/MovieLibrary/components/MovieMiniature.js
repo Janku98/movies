@@ -1,5 +1,4 @@
-import React, { Component, PureComponent, useState  } from 'react';
-import classNames from 'classnames';
+import React from 'react';
 import TMDBImage from './TMDBImage';
 import './styles/MovieMiniature.css';
 import Modal from './Modal';
@@ -15,10 +14,8 @@ export default function MovieMiniature(props) {
       openModal()
     };
   
-    const {movie: {title, vote_average, poster_path, original_language, original_title, overview, release_date, }, isSelected} = props;
+    const {movie: {title, vote_average, poster_path, original_language, original_title, overview, release_date, }} = props;
 
-    
-  
     return(
       <div>
         <div onClick={handleClick}>
