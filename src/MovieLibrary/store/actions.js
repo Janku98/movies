@@ -1,17 +1,22 @@
-import actions from '../../actionTypes'
-import topRatedMovies from '../mocks/topTatedMovies'
+import actions from '../../actionTypes';
+import axios from 'axios';
+import API_KEY from '../../KEY';
 
-export function fetchTopRatedMovies() {
-  return {
+export function fetchMovies(pageNumber) {
+  return async function (dispatch){
+    const res = await axios.get(`https://api.themoviedb.org/3/movie/now_playing?api_key=${API_KEY}&language=en-US&page=${pageNumber}`);
+    console.log("RES", res.data.results)
+    dispatch({
     type: actions.FETCH_MOVIES,
-    payload: topRatedMovies
+    payload: res.data.results
+    })
   }
 };
 
-export function sortMovie(state) {
-  return {
-    type: actions.SORT_MOVIES,
-    payload: state
-  }
-};
+// export function sortMovie(state) {
+//   return {
+//     type: actions.SORT_MOVIES,
+//     payload: state
+//   }
+// };
 

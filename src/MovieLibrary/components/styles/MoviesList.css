@@ -32,7 +32,7 @@
 }
 
 .miniatureimg{
-  display: flex;
-  align-items: center;
-  flex-direction: row;
+  display: grid;
+
+  grid-template-columns: repeat(10, 10%);
 }
