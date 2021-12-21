@@ -1,37 +1,55 @@
-import React, { Component, useEffect } from 'react'
-import {connect} from 'react-redux'
-import PropTypes from 'prop-types'
-import {fetchTopRatedMovies} from '../store/actions'
-
-
-import logo from './logo.svg'
-import './MovieLibrary.css'
-import {getMovies} from '../store/selectors'
-import MoviesList from './MoviesList'
+import React, { useEffect, useState} from 'react';
+import {connect, useDispatch} from 'react-redux';
+import {fetchMovies} from '../store/actions';
+import InfiniteScroll from 'react-infinite-scroll-component';
+import logo from '../assets/logo.svg';
+import './styles/MovieLibrary.css';
+import {getMovies} from '../store/selectors';
+import MoviesList from './MoviesList';
 
 export const MovieLibrary = (props) => {
-  console.log("PROPS", props)
-
-  let propTypes = {
-
-  };
 
   useEffect(()=>{
-    const {fetchTopRatedMovies} = props;
-    fetchTopRatedMovies();
-  });
+    const {fetchMovies} = props;
+    fetchMovies(1);
+    fetchMovies(2) ;
+    fetchMovies(3);
+  },[]);
 
+  const dispatch = useDispatch();
+  const [hasMore, setHasMore] = useState(true);
+  const [page, setPage] = useState(4);
   const {movies} = props
 
+  const fetchData = () =>{
+    dispatch(fetchMovies(page));
+    setPage(page + 1);
+    if(page === 87){
+      setHasMore(false);
+    };
+  };
+  
   return (
     <div className="MovieLibrary">
+
         <header className="ML-header">
           <img src={logo} className="ML-logo" alt="logo" />
           <h1 className="ML-title">Movies</h1>
         </header>
-        <div className="ML-intro">
-          { movies.length && <MoviesList movies={movies}/> }
-        </div>
+        
+        <InfiniteScroll
+            dataLength={movies.length} 
+            next={fetchData}
+            hasMore={hasMore}
+            loader={<h4>Loading...</h4>}
+            endMessage={<p style={{ textAlign: 'center' }}><b>Yay! You have seen it all</b></p> }>
+            {
+              <div className="ML-intro">
+                {movies.length && <MoviesList movies={movies}/> }
+              </div>
+              }
+        </InfiniteScroll>
+
       </div>
   );
 }
@@ -40,4 +58,4 @@ export const MovieLibrary = (props) => {
 
 export default connect(state => ({
   movies: getMovies(state)
-}), {fetchTopRatedMovies})(MovieLibrary)
+}), {fetchMovies})(MovieLibrary)
