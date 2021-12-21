@@ -2,7 +2,7 @@ import React, { useEffect, useState} from 'react';
 import {connect, useDispatch} from 'react-redux';
 import {fetchMovies} from '../store/actions';
 import InfiniteScroll from 'react-infinite-scroll-component';
-import logo from './logo.svg';
+import logo from '../assets/logo.svg';
 import './styles/MovieLibrary.css';
 import {getMovies} from '../store/selectors';
 import MoviesList from './MoviesList';
@@ -49,7 +49,8 @@ export const MovieLibrary = (props) => {
               </div>
               }
         </InfiniteScroll>
-    </div>
+
+      </div>
   );
 }
 

@@ -1,7 +1,9 @@
-import actions from '../../actionTypes'
+import actions from './actionTypes'
+import {aTOz, zTOa, ratingSort} from '../components/hooks/useSort';
 
 const initialState = {
-  movies: []
+  movies: [],
+  sortedMovies: []
 }
 
 export default function movies(state = initialState, action) {
@@ -11,11 +13,31 @@ export default function movies(state = initialState, action) {
     case actions.FETCH_MOVIES:
       return {
         ...state,
-        movies:  state.movies.concat(payload)
-      };    
+        movies:  state.movies.concat(payload),
+        sortedMovies: state.movies.concat(payload)
+      }; 
+
+    case actions.SORT_MOVIES:
+      if(payload === "name_asc"){
+        return{
+        ...state,
+        sortedMovies: state.movies.sort(aTOz)
+        }
+      };
+      if(payload === "name_desc"){
+        return{
+          ...state,
+          sortedMovies: state.movies.sort(zTOa)
+        }
+      };
+      if (payload === "rating"){
+        return{
+          ...state,
+          sortedMovies: state.movies.sort(ratingSort)
+        }
+      };
       
-    default:
-      console.log("entro al default ") 
+    default: 
       return state
   }
-}
+};

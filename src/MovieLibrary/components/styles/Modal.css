@@ -18,16 +18,34 @@
 .modal-container{
     position: relative;
     padding: 1rem;
-    background-color: blanchedalmond;
+    background-color: rgb(202, 202, 202);
+    border-radius: 12px;
     min-width: 320px;
-    max-width: 480px;
-    min-height: 200px;
-    max-height: 600px;
-    overflow-y: auto;
+    max-width: 600px;
+    min-height: 500px;
+    max-height: 450px;
+    display: flex;
+    flex-direction: row;
+    align-items: center;
 }
 
 .modal-close{
     position: absolute;
     top: 1rem;
     right: 1rem;
+    color: rgba(229, 255, 0, 0.685);
+    background-color: rgb(255, 71, 71);
+    border-radius: 10px;
+    border-color: rgb(0, 0, 0);
+}
+.modal-close:hover{
+    border-color: rgba(240, 14, 14, 0.685);
+    color:rgb(0, 0, 0);
+    background-color: rgba(92, 230, 255, 0.877);;
+    cursor: pointer;
+}
+.modal-imgposter{
+    height: 100%;
+    width: 250px;
+    padding: 15px;
 }
