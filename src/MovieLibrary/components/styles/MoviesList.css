@@ -33,6 +33,29 @@
 
 .miniatureimg{
   display: grid;
-
   grid-template-columns: repeat(10, 10%);
+}
+.sort-div{
+  background-color: rgba(55, 118, 160, 0.123);
+  color: rgba(92, 230, 255, 0.877);
+  font-size: 35px;
+  font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  align-items: center;
+}
+.sort-select{
+    position: relative;
+    width: 200px;
+    height: 30px;
+    border-radius: 10px;
+    border: none;
+    text-transform: capitalize;
+    color: #fff;
+    background: #292929;
+    text-align: left;
+    padding: 5px;
+    font-size: 16px;
+    cursor: pointer;
 }

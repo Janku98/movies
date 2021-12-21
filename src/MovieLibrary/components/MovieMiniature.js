@@ -18,23 +18,30 @@ export default function MovieMiniature(props) {
 
     return(
       <div>
-        <div onClick={handleClick}>
+        <div onClick={handleClick} className="imgposter-div">
           <TMDBImage alt="Movie Poster" src={poster_path} className="imgposter"/>
         </div>
-        <div>
+        
+        <div >
           <Modal isOpen={isOpen} closeModal={closeModal}>
-            <div className="modalTitle">
-              <h3>{title}</h3><h6>({original_title})</h6> 
-            </div>
-
-            <div className="modalSubTitle">
-              <h6>Release Date: {release_date}</h6>
-              <h6>Original Language: {original_language}</h6>
-              <h6>vote Average: {vote_average}</h6>
-            </div>
-
             <div>
-              <p>{overview}</p>
+                <div className="modalTitle">
+                  <h1>{title}</h1><h6>({original_title})</h6> 
+                </div>
+                
+                <div>
+                  <p>{overview}</p>
+                </div>
+
+                <div className="modalSubTitle">
+                  <h6>Release Date: {release_date}</h6>
+                  <h6>Original Language: {original_language}</h6>
+                  <h6>vote Average: {vote_average}</h6>
+                </div>
+
+            </div>
+            <div>
+              <TMDBImage alt="Movie Poster" src={poster_path} className="modal-imgposter"/>
             </div>
           </Modal>
         </div>

@@ -1,9 +1,16 @@
 .imgposter{
     height: 200px;
-    width: 90px;
+    width: 136px;
     border: 5px solid rgb(0, 0, 0);
-    
+    z-index: 1;
 };
+.imgposter:hover{
+    
+}
+.imgposter-div:hover{
+transform: scale(1.05);
+    cursor: pointer;
+}
 
 .modalTitle{
     display: flex;
